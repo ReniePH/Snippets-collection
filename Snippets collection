@@ -1,0 +1,33 @@
+//Below is a very simplified Fetch API POST request that is triggered on the click of a button.
+//Fetch API snippet in a node.js Express app.
+
+document
+    .getElementById("buttonEventSend")
+    .addEventListener("click", function () {
+      //--
+      fetch("http://localhost:3000/api/users", {
+        method: "post",
+        body: editor.getValue(),
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((json) => console.log(json))
+        .catch((err) => console.log(err));
+      //--
+    });
+    
+    -------------------------------------------------------------------------------------
+    //The app object conventionally denotes the Express application. Create it by calling the top-level express() function exported by the Express module:
+    
+    var express = require('express')
+    var app = express()
+
+    app.get('/', function (req, res) {
+    res.send('hello world')
+    })
+
+    app.listen(3000)
+    -------------------------------------------------------------------------------------
+    app.delete('/', function (req, res) {
+    res.send('DELETE request to homepage')
+    })
