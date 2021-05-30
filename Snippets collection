@@ -28,6 +28,76 @@ document
 
     app.listen(3000)
     -------------------------------------------------------------------------------------
-    app.delete('/', function (req, res) {
+   //app.delete(path, callback [, callback ...])
+   //Routes HTTP DELETE requests to the specified path with the specified callback functions.
+   
+   app.delete('/', function (req, res) {
     res.send('DELETE request to homepage')
     })
+    ------------------------------------------------------------------------------------
+    //app.get(name)
+    //Returns the value of name app setting, where name is one of the strings
+    
+    app.get('title')
+    // => undefined
+
+    app.set('title', 'My Site')
+    app.get('title')
+    // => "My Site"
+    --------------------------------------------------------------------------------------
+    //app.get(path, callback [, callback ...])
+    //Routes HTTP GET requests to the specified path with the specified callback functions.
+    
+    app.get('/', function (req, res) {
+    res.send('GET request to homepage')
+    })
+    -----------------------------------------------------------------------------------------
+    
+    //app.listen([port[, host[, backlog]]][, callback])
+    //Binds and listens for connections on the specified host and port. This method is identical to Node’s http.Server.listen().
+
+    //If port is omitted or is 0, the operating system will assign an arbitrary unused port, which is useful for cases like automated tasks (tests, etc.).
+    
+    var express = require('express')
+    var app = express()
+    app.listen(3000)
+    --------
+    //The app returned by express() is in fact a JavaScript Function, designed to be passed to Node’s HTTP servers as a callback to handle requests.
+    This makes it easy to provide both HTTP and HTTPS versions of your app with the same code base, as the app does not inherit from these (it is simply a callback):
+    
+    var express = require('express')
+    var https = require('https')
+    var http = require('http')
+    var app = express()
+
+    http.createServer(app).listen(80)
+    https.createServer(options, app).listen(443)
+    ------------
+    //The app.listen() method returns an http.Server object and (for HTTP) is a convenience method for the following:
+    
+    app.listen = function () {
+    var server = http.createServer(this)
+    return server.listen.apply(server, arguments)
+    }
+    -------------------------------------------------------------------------------------------------
+    //app.post(path, callback [, callback ...])
+    //Routes HTTP POST requests to the specified path with the specified callback functions.
+    
+    app.post('/', function (req, res) {
+    res.send('POST request to homepage')
+    })
+    ---------------------------------------------------------------------------------------------------
+    ///app.put(path, callback [, callback ...])
+    //Routes HTTP PUT requests to the specified path with the specified callback functions.
+    
+    app.put('/', function (req, res) {
+    res.send('PUT request to homepage')
+    })
+    -------------------------------------------------------------------------------
+    
+    
+    
+    
+    
+    
+    
