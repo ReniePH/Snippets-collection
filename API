@@ -1,0 +1,64 @@
+This guide is come from --freeCodeCamp
+Make sure you have Node.JS installed and node and npm are available in your path.
+Create a directory rest-service-node and cd into it:
+
+mkdir rest-service-node
+cd rest-service-node
+
+Initialize the node project:
+
+npm init -y
+
+The -y flag skips all the questions. 
+Let's install some packages. We will be using the ExpressJS framework for developing the REST Server. 
+
+npm install --save express body-parser
+
+What's body-parser there for? Express, by default, is incapable of handling data sent via POST request as JSON. body-parser allows Express to overcome this.
+Create a file called server.js
+
+const express = require("express");
+const bodyParser = require("body-parser");
+
+const app = express();
+
+app.use(bodyParser.json());
+
+app.listen(5000, () => {
+  console.log(`Server is running on port 5000.`);
+});
+
+The first two lines are importing Express and body-parser.
+Third line initializes the Express server and sets it to a variable called app.
+The line, app.use(bodyParser.json()); initializes the body-parser plugin.
+Finally, we are setting our server to listen on port 5000 for requests.
+
+Getting data from the REST Server:
+To get data from a server, we need a GET request. Add the following code before app.listen:
+
+const sayHi = (req, res) => {
+  res.send("Hi!");
+};
+
+app.get("/", sayHi);
+
+node server.js
+
+If everything is successful, you should see a message on console saying: Server is running on port 5000.
+
+Sending data to REST Server:
+As we have discussed earlier, let's setup how we can implement a POST request into our server.
+We will be sending in two numbers and the server will return the sum of the numbers. Add this new method below the app.get :
+
+app.post("/add", (req, res) => {
+  const { a, b } = req.body;
+  res.send(`The sum is: ${a + b}`);
+});
+
+Here, we will be sending the data in JSON format, like this:
+
+{
+    "a":5,
+    "b":10
+}
+
